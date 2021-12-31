@@ -1,8 +1,8 @@
+# flake8: noqa: F403,F405
 """
 Base Django settings for sandbox
 """
 
-from os import listdir
 from os.path import abspath, dirname, join, normpath
 
 
@@ -149,8 +149,13 @@ INSTALLED_APPS = [
     "django.contrib.sites",
     "django.contrib.staticfiles",
     "django.forms",
+    "django_extensions",
+    "sslserver",
+    "corsheaders",
+    "vv",
     "{{ cookiecutter.app_name }}.apps.{{ cookiecutter.app_name }}Config",{% if cookiecutter.enable_drf|lower == 'true' %}
-    "rest_framework",{% endif %}
+    "rest_framework",
+    "django_filters",{% endif %}
 ]
 
 LOGIN_REDIRECT_URL = "/"
@@ -159,6 +164,23 @@ LOGOUT_REDIRECT_URL = "/"
 # Ensure we can override applications widgets templates from project template
 # directory, require also 'django.forms' in INSTALLED_APPS
 FORM_RENDERER = "django.forms.renderers.TemplatesSetting"
+
+SESSION_COOKIE_SAMESITE = "Lax"
+SESSION_COOKIE_SECURE = True
+# SESSION_COOKIE_NAME = SITE_SLUG + "_sessionid"
+
+CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_SAMESITE = "None"
+CSRF_TRUSTED_ORIGINS = [
+    "localhost:3000",
+    "localhost:5000",
+    # "192.168.1.5:3000",
+]
+# CSRF_COOKIE_NAME = SITE_SLUG + "_csrftoken"
+
+CORS_ALLOWED_ORIGINS = CSRF_TRUSTED_ORIGINS
+# CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
 
 {% if cookiecutter.enable_drf|lower == 'true' %}
 # Django REST Framework configuration

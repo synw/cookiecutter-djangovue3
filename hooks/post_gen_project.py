@@ -1,6 +1,5 @@
 import os
 import shutil
-import sys
 
 
 # API option value, cleaned and lowercase so it should be safe for wrong input
@@ -24,7 +23,8 @@ def clean_api_parts(paths):
     Clean generated project from every paths related to API feature.
 
     Keywords Arguments:
-        paths (list): List of relative (to generated project root) path to remove.
+        paths (list): List of relative (to generated project root) path to
+        remove.
     """
     for path in paths:
         if os.path.exists(path):

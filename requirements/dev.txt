@@ -1,3 +1,6 @@
 -r base.txt
 flake8
 pytest
+black
+django-sslserver==0.22
+django-vitevue==0.6.0
