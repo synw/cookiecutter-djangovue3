@@ -172,8 +172,8 @@ SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 CSRF_COOKIE_SAMESITE = "None"
 CSRF_TRUSTED_ORIGINS = [
-    "localhost:3000",
-    "localhost:5000",
+    "https://localhost:3000",
+    "https://localhost:5000",
     # "192.168.1.5:3000",
 ]
 # CSRF_COOKIE_NAME = SITE_SLUG + "_csrftoken"
