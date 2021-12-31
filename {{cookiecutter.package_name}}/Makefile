@@ -26,6 +26,7 @@ help:
 	@echo "  clean-pycache       -- to remove all __pycache__, this is recursive from current directory"
 	@echo
 	@echo "  run                 -- to run Django development server"
+	@echo "  srun                -- to run Django development server in ssl mode"
 	@echo "  migrate             -- to apply demo database migrations"
 	@echo "  migrations          -- to create new migrations for application after changes"
 	@echo "  superuser           -- to create a superuser for Django admin"
@@ -131,8 +132,26 @@ run:
 	@echo "==== Running development server ===="
 	@echo ""
 	@DJANGO_SECRET_KEY=$(DEMO_DJANGO_SECRET_KEY) \
-	$(DJANGO_MANAGE) runserver 0.0.0.0:8001
+	$(DJANGO_MANAGE) runserver 0.0.0.0:8000
 .PHONY: run
+
+srun:
+	@echo ""
+	@echo "==== Running development server in ssl mode ===="
+	@echo ""
+	@DJANGO_SECRET_KEY=$(DEMO_DJANGO_SECRET_KEY) \
+	$(DJANGO_MANAGE) runsslserver 0.0.0.0:8000
+.PHONY: srun
+
+shell:
+	@DJANGO_SECRET_KEY=$(DEMO_DJANGO_SECRET_KEY) \
+	$(DJANGO_MANAGE) shell_plus
+.PHONY: shell
+
+check:
+	@DJANGO_SECRET_KEY=$(DEMO_DJANGO_SECRET_KEY) \
+	$(DJANGO_MANAGE) check
+.PHONY: check
 
 docs:
 	@echo ""
