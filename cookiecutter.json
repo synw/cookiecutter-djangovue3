@@ -10,6 +10,6 @@
     "pypi_username": "{{ cookiecutter.author_username }}",
     "version": "0.1.0",
     "_copy_without_render": [
-        "{{cookiecutter.package_name}}/frontend"
+        "*frontend"
     ]
 }
