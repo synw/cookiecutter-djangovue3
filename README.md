@@ -21,7 +21,7 @@ Optional packages:
 ## Install
 
    ```bash
-   cookiecutter https://github.com/sveetch/cookiecutter-sveetch-djangoapp.git
+   cookiecutter https://github.com/synw/cookiecutter-djangovue3.git
    ```
 
 Once the project created cd in the directory and install the backend:
