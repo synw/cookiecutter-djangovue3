@@ -5,7 +5,9 @@ PIP=$(VENV_PATH)/bin/pip
 TWINE=$(VENV_PATH)/bin/twine
 DJANGO_MANAGE=$(VENV_PATH)/bin/python sandbox/manage.py
 FLAKE=$(VENV_PATH)/bin/flake8
+BLACK=$(VENV_PATH)/bin/black
 PYTEST=$(VENV_PATH)/bin/pytest
+PYRIGTH=$(VENV_PATH)/bin/pyright
 SPHINX_RELOAD=$(VENV_PATH)/bin/python sphinx_reload.py
 
 DEMO_DJANGO_SECRET_KEY=samplesecretfordev
@@ -35,6 +37,7 @@ help:
 	@echo "  test                -- to launch base test suite using Pytest"
 	@echo "  test-initial        -- to launch tests with pytest and re-initialized database (for after new application or model changes)"
 	@echo "  quality             -- to launch Flake8 checking and every tests suites"
+	@echo "  codecheck           -- check the code quality with Pycheck"
 	@echo
 
 clean-pycache:
@@ -178,8 +181,20 @@ freeze-dependencies:
 	$(VENV_PATH)/bin/python freezer.py
 .PHONY: freeze-dependencies
 
-quality: test-initial flake freeze-dependencies
+quality: test-initial freeze-dependencies 
 	@echo ""
 	@echo "♥ ♥ Everything should be fine ♥ ♥"
 	@echo ""
 .PHONY: quality
+
+format:
+	$(BLACK) --extend-exclude='/*/migrations/*|setup.py' .
+.PHONY: format
+
+dryformat:
+	$(BLACK) --extend-exclude='/*/migrations/*|setup.py' --check .
+.PHONY: dryformat
+
+codecheck:
+	pycheck --django
+.PHONY: codecheck
