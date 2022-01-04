@@ -102,6 +102,7 @@ STATICFILES_DIRS = [
 
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.locale.LocaleMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -165,20 +166,25 @@ LOGOUT_REDIRECT_URL = "/"
 # directory, require also 'django.forms' in INSTALLED_APPS
 FORM_RENDERER = "django.forms.renderers.TemplatesSetting"
 
-SESSION_COOKIE_SAMESITE = "Lax"
+# SITE_SLUG = "{{ cookiecutter.app_name }}"
+
+SESSION_COOKIE_SAMESITE = "None"
 SESSION_COOKIE_SECURE = True
 # SESSION_COOKIE_NAME = SITE_SLUG + "_sessionid"
 
 CSRF_COOKIE_SECURE = True
 CSRF_COOKIE_SAMESITE = "None"
 CSRF_TRUSTED_ORIGINS = [
+    "localhost:3000",
+    "localhost:5000",
+]
+# CSRF_COOKIE_NAME = SITE_SLUG + "_csrftoken"
+
+CORS_ALLOWED_ORIGINS = [
     "https://localhost:3000",
     "https://localhost:5000",
     # "192.168.1.5:3000",
 ]
-# CSRF_COOKIE_NAME = SITE_SLUG + "_csrftoken"
-
-CORS_ALLOWED_ORIGINS = CSRF_TRUSTED_ORIGINS
 # CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
 
