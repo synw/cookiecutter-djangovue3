@@ -27,6 +27,7 @@ help:
 	@echo
 	@echo "  run                 -- to run Django development server"
 	@echo "  srun                -- to run Django development server in ssl mode"
+	@echo "  frontend            -- to run Vuejs frontend"
 	@echo "  migrate             -- to apply demo database migrations"
 	@echo "  migrations          -- to create new migrations for application after changes"
 	@echo "  superuser           -- to create a superuser for Django admin"
@@ -142,6 +143,13 @@ srun:
 	@DJANGO_SECRET_KEY=$(DEMO_DJANGO_SECRET_KEY) \
 	$(DJANGO_MANAGE) runsslserver 0.0.0.0:8000
 .PHONY: srun
+
+frontend:
+	@echo ""
+	@echo "==== Running frontend ===="
+	@echo ""
+	cd frontend && yarn dev
+.PHONY: frontend
 
 shell:
 	@DJANGO_SECRET_KEY=$(DEMO_DJANGO_SECRET_KEY) \
