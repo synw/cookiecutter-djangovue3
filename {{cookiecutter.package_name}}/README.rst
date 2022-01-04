@@ -15,9 +15,3 @@ Dependancies
 * `Django`_>=2.2;{% if cookiecutter.enable_drf|lower == 'true' %}
 * `Django REST framework`_>=3.12.0;{% endif %}
 
-Links
-*****
-
-* Read the documentation on `Read the docs <https://{{ cookiecutter.package_name }}.readthedocs.io/>`_;
-* Download its `PyPi package <https://pypi.python.org/pypi/{{ cookiecutter.package_name }}>`_;
-* Clone it on its `Github repository <https://github.com/{{ cookiecutter.author_username }}/{{ cookiecutter.package_name }}>`_;

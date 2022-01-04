@@ -21,7 +21,6 @@ help:
 	@echo
 	@echo "  clean               -- to clean EVERYTHING (Warning)"
 	@echo "  clean-var           -- to clean data (uploaded medias, database, etc..)"
-	@echo "  clean-doc           -- to remove documentation builds"
 	@echo "  clean-install       -- to clean Python side installation"
 	@echo "  clean-pycache       -- to remove all __pycache__, this is recursive from current directory"
 	@echo
@@ -32,16 +31,10 @@ help:
 	@echo "  migrations          -- to create new migrations for application after changes"
 	@echo "  superuser           -- to create a superuser for Django admin"
 	@echo
-	@echo "  docs                -- to build documentation"
-	@echo "  livedocs            -- to run livereload server to rebuild documentation on source changes"
-	@echo
 	@echo "  flake               -- to launch Flake8 checking"
 	@echo "  test                -- to launch base test suite using Pytest"
 	@echo "  test-initial        -- to launch tests with pytest and re-initialized database (for after new application or model changes)"
 	@echo "  quality             -- to launch Flake8 checking and every tests suites"
-	@echo
-	@echo "  check-release       -- to check package release before uploading it to PyPi"
-	@echo "  release             -- to release package for latest version on PyPi (once release has been pushed to repository)"
 	@echo
 
 clean-pycache:
@@ -67,13 +60,6 @@ clean-var:
 	@echo ""
 	rm -Rf var
 .PHONY: clean-var
-
-clean-doc:
-	@echo ""
-	@echo "==== Clear documentation ===="
-	@echo ""
-	rm -Rf docs/_build
-.PHONY: clean-doc
 
 clean: clean-var clean-doc clean-install clean-pycache
 .PHONY: clean
@@ -161,20 +147,6 @@ check:
 	$(DJANGO_MANAGE) check
 .PHONY: check
 
-docs:
-	@echo ""
-	@echo "==== Build documentation ===="
-	@echo ""
-	cd docs && make html
-.PHONY: docs
-
-livedocs:
-	@echo ""
-	@echo "==== Watching documentation sources ===="
-	@echo ""
-	$(SPHINX_RELOAD)
-.PHONY: livedocs
-
 flake:
 	@echo ""
 	@echo "==== Flake ===="
@@ -206,29 +178,7 @@ freeze-dependencies:
 	$(VENV_PATH)/bin/python freezer.py
 .PHONY: freeze-dependencies
 
-build-package:
-	@echo ""
-	@echo "==== Build package ===="
-	@echo ""
-	rm -Rf dist
-	$(VENV_PATH)/bin/python setup.py sdist
-.PHONY: build-package
-
-release: build-package
-	@echo ""
-	@echo "==== Release ===="
-	@echo ""
-	$(TWINE) upload dist/*
-.PHONY: release
-
-check-release: build-package
-	@echo ""
-	@echo "==== Check package ===="
-	@echo ""
-	$(TWINE) check dist/*
-.PHONY: check-release
-
-quality: test-initial flake docs freeze-dependencies check-release
+quality: test-initial flake freeze-dependencies
 	@echo ""
 	@echo "♥ ♥ Everything should be fine ♥ ♥"
 	@echo ""
