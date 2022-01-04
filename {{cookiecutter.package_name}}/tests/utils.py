@@ -1,3 +1,4 @@
+# flake8: noqa: E203
 """
 ==============
 Test utilities
@@ -23,9 +24,9 @@ DRF_DUMMY_HOST_URL = "http://testserver"
 # A dummy blank GIF file in byte value to simulate an uploaded file like with
 # 'django.core.files.uploadedfile.SimpleUploadedFile'
 DUMMY_GIF_BYTES = (
-    b'\x47\x49\x46\x38\x39\x61\x01\x00\x01\x00\x00\x00\x00\x21\xf9\x04'
-    b'\x01\x0a\x00\x01\x00\x2c\x00\x00\x00\x00\x01\x00\x01\x00\x00\x02'
-    b'\x02\x4c\x01\x00\x3b'
+    b"\x47\x49\x46\x38\x39\x61\x01\x00\x01\x00\x00\x00\x00\x21\xf9\x04"
+    b"\x01\x0a\x00\x01\x00\x2c\x00\x00\x00\x00\x01\x00\x01\x00\x00\x02"
+    b"\x02\x4c\x01\x00\x3b"
 )
 
 
@@ -66,7 +67,7 @@ def get_relative_path(site_url, url):
         string: Admin change view URL path for given model object.
     """
     if url.startswith(site_url):
-        return url[len(site_url):]
+        return url[len(site_url) :]
 
     return url
 
@@ -84,10 +85,9 @@ def get_admin_add_url(model):
     """
     url_pattern = "admin:{app}_{model}_add"
 
-    return reverse(url_pattern.format(
-        app=model._meta.app_label,
-        model=model._meta.model_name
-    ))
+    return reverse(
+        url_pattern.format(app=model._meta.app_label, model=model._meta.model_name)
+    )
 
 
 def get_admin_change_url(obj):
@@ -103,12 +103,10 @@ def get_admin_change_url(obj):
     """
     url_pattern = "admin:{app}_{model}_change"
 
-    return reverse(url_pattern.format(
-        app=obj._meta.app_label,
-        model=obj._meta.model_name
-    ), args=[
-        obj.pk
-    ])
+    return reverse(
+        url_pattern.format(app=obj._meta.app_label, model=obj._meta.model_name),
+        args=[obj.pk],
+    )
 
 
 def get_admin_list_url(model):
@@ -124,10 +122,9 @@ def get_admin_list_url(model):
     """
     url_pattern = "admin:{app}_{model}_changelist"
 
-    return reverse(url_pattern.format(
-        app=model._meta.app_label,
-        model=model._meta.model_name
-    ))
+    return reverse(
+        url_pattern.format(app=model._meta.app_label, model=model._meta.model_name)
+    )
 
 
 def decode_response_or_string(content):
@@ -163,9 +160,7 @@ def html_element(content):
         comparaison on a semantical way. See ``django.test.html.parse_html`` for
         more details.
     """
-    return parse_html(
-        decode_response_or_string(content)
-    )
+    return parse_html(decode_response_or_string(content))
 
 
 def html_pyquery(content):
@@ -183,14 +178,10 @@ def html_pyquery(content):
     Returns:
         pyquery.PyQuery: A PyQuery object.
     """
-    return pq(
-        decode_response_or_string(content),
-        parser='html'
-    )
+    return pq(decode_response_or_string(content), parser="html")
 
 
-def queryset_values(queryset, names=["slug", "language"],
-                    orders=["slug", "language"]):
+def queryset_values(queryset, names=["slug", "language"], orders=["slug", "language"]):
     """
     An helper to just return a list of dict values ordered from given queryset.
 
@@ -206,9 +197,7 @@ def queryset_values(queryset, names=["slug", "language"],
     Returns:
         list: A list of dict items for all result objects.
     """
-    return list(
-        queryset.values(*names).order_by(*orders)
-    )
+    return list(queryset.values(*names).order_by(*orders))
 
 
 def compact_form_errors(form):
@@ -251,10 +240,7 @@ def build_post_data_from_object(model, obj, ignore=["id"]):
     """
     data = {}
 
-    fields = [
-        f.name for f in model._meta.get_fields()
-        if f.name not in ignore
-    ]
+    fields = [f.name for f in model._meta.get_fields() if f.name not in ignore]
 
     for name in fields:
         if obj is dict:

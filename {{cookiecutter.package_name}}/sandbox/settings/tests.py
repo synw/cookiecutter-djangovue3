@@ -1,3 +1,5 @@
+# flake8: noqa: F403,F405
+# pyright: reportUndefinedVariable=false
 """
 Django settings for tests
 """
@@ -10,7 +12,7 @@ DATABASES = {
         "NAME": ":memory:",
         "TEST": {
             "NAME": join(VAR_PATH, "db", "tests.sqlite3"),  # noqa
-        }
+        },
     }
 }
 

@@ -1,3 +1,5 @@
+# flake8: noqa: F403,F405
+# pyright: reportUndefinedVariable=false
 """
 Django settings for demonstration
 
